@@ -1,21 +1,36 @@
-# shadcn/ui monorepo template
+# Next Imobiliaria
 
-This is a Next.js monorepo template with shadcn/ui.
+Monorepo com Next.js para o site da imobiliaria.
 
-## Adding components
+## Stack
 
-To add components to your app, run the following command at the root of your `web` app:
+- Next.js (App Router)
+- Turborepo
+- pnpm
+- Tailwind CSS
+- shadcn/ui
+
+## Estrutura
+
+- `apps/web`: aplicacao principal
+- `packages/ui`: componentes compartilhados
+- `packages/eslint-config`: configuracoes de lint
+- `packages/typescript-config`: configuracoes de TypeScript
+
+## Como rodar
 
 ```bash
-pnpm dlx shadcn@latest add button -c apps/web
+pnpm install
+pnpm dev
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+App web: `http://localhost:3000`
 
-## Using components
+## Comandos uteis
 
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button";
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm format
 ```
