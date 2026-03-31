@@ -40,32 +40,38 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    --luxury-band: oklch(0.97 0 0);
+    --luxury-footer: oklch(0.985 0 0);
+    --luxury-panel: oklch(0.93 0 0);
+    --luxury-ink-muted: oklch(0.45 0 0);
+    --luxury-deep: #0e0e0e;
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: #131313;
+    --foreground: #e2e2e2;
+    --card: #1f1f1f;
+    --card-foreground: #e2e2e2;
+    --popover: #1f1f1f;
+    --popover-foreground: #e2e2e2;
+    --primary: #ffffff;
+    --primary-foreground: #1a1c1c;
+    --secondary: #474746;
+    --secondary-foreground: #e5e2e1;
+    --muted: #2a2a2a;
+    --muted-foreground: #9ca3af;
+    --accent: #2a2a2a;
+    --accent-foreground: #e2e2e2;
     --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
+    --border: #474747;
+    --input: #474747;
+    --ring: #919191;
     --chart-1: oklch(0.855 0.138 181.071);
     --chart-2: oklch(0.704 0.14 182.503);
     --chart-3: oklch(0.6 0.118 184.704);
     --chart-4: oklch(0.511 0.096 186.391);
     --chart-5: oklch(0.437 0.078 188.216);
+    --radius: 0px;
     --sidebar: oklch(0.205 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
     --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -74,6 +80,11 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+    --luxury-band: #1b1b1b;
+    --luxury-footer: #0e0e0e;
+    --luxury-panel: #2a2a2a;
+    --luxury-ink-muted: #c6c6c6;
+    --luxury-deep: #0e0e0e;
 }
 
 @theme inline {
@@ -117,6 +128,11 @@
     --color-sidebar-ring: var(--sidebar-ring);
     --font-sans: var(--font-sans);
     --font-heading: var(--font-heading);
+    --color-luxury-band: var(--luxury-band);
+    --color-luxury-footer: var(--luxury-footer);
+    --color-luxury-panel: var(--luxury-panel);
+    --color-luxury-ink-muted: var(--luxury-ink-muted);
+    --color-luxury-deep: var(--luxury-deep);
 }
 
 @layer base {
@@ -126,4 +142,8 @@
   body {
     @apply bg-background text-foreground;
     }
+  .dark ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
 }

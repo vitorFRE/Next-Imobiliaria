@@ -1,0 +1,23 @@
+---
+description: Antes de instalar deps ou ícones, confere package.json; prioriza shadcn e ícones já no projeto.
+alwaysApply: true
+---
+
+# Dependências, ícones e UI
+
+## Antes de instalar qualquer pacote
+
+1. Ler **`package.json` na raiz** e o **`package.json` do pacote afetado** (`apps/web`, `packages/ui`, etc.). Em monorepo, a dependência pode já existir em outro workspace.
+2. **Não** sugerir `pnpm add` se o pacote (ou equivalente) já estiver em `dependencies` ou `devDependencies` do app ou do pacote `@workspace/ui`.
+3. Se faltar algo só em um workspace, preferir adicionar no lugar certo (ex.: UI compartilhada em `packages/ui` quando for uso transversal).
+
+## Ícones
+
+1. Procurar no `package.json` por bibliotecas de ícones (ex.: `@tabler/icons-react`, `lucide-react`, `@phosphor-icons/react`).
+2. **Este projeto já usa `@tabler/icons-react`** em `apps/web` e `packages/ui` — importar de `@tabler/icons-react` e **não** adicionar outra lib de ícones só por preferência pessoal.
+3. Só propor uma segunda biblioteca de ícones se houver requisito explícito do time; caso contrário, manter um único sistema de ícones.
+
+## shadcn / componentes
+
+1. Para UI reutilizável (botões, formulários, diálogos, etc.), **priorizar o stack shadcn** já presente em `packages/ui` (`shadcn` no package, componentes em `packages/ui/src/components/`).
+2. Adicionar novos primitives via fluxo shadcn no pacote `@workspace/ui`, depois consumir com `@workspace/ui/components/...` no app — evitar duplicar padrões com outras libs de componentes sem necessidade.
