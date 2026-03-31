@@ -9,8 +9,6 @@ export function ContactOffices() {
           key={office.title}
           className={cn(
             "p-10",
-            office.variant === "panel" &&
-              "border border-border/60 bg-muted",
             office.variant === "outline" &&
               "border border-border bg-card text-card-foreground shadow-sm",
           )}
