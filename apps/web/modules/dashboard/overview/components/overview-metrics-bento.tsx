@@ -1,55 +1,27 @@
-import { IconTrendingUp } from "@tabler/icons-react"
+import type { ListingAdminStat } from "@/modules/dashboard/imoveis/types/listings-admin"
 
-export function OverviewMetricsBento() {
+type Props = {
+  stats: ListingAdminStat[]
+}
+
+export function OverviewMetricsBento({ stats }: Props) {
   return (
     <section className="mb-16 grid grid-cols-1 gap-px border border-border/40 bg-border/30 md:grid-cols-4">
-      <div className="group bg-background p-8 transition-colors hover:bg-muted/40">
-        <span className="mb-6 block font-sans text-[0.65rem] tracking-[0.2em] text-muted-foreground uppercase">
-          Total de imoveis ativos
-        </span>
-        <div className="flex items-baseline gap-2">
-          <span className="font-heading text-4xl font-extrabold text-foreground">
-            124
+      {stats.map((stat) => (
+        <div
+          key={stat.label}
+          className="group bg-background p-8 transition-colors hover:bg-muted/40"
+        >
+          <span className="mb-6 block font-sans text-[0.65rem] tracking-[0.2em] text-muted-foreground uppercase">
+            {stat.label}
           </span>
-          <span className="font-sans text-xs text-muted-foreground">
-            +4 este mês
-          </span>
+          <div className="flex items-baseline gap-2">
+            <span className="font-heading text-4xl font-extrabold text-foreground">
+              {stat.value}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="group bg-background p-8 transition-colors hover:bg-muted/40">
-        <span className="mb-6 block font-sans text-[0.65rem] tracking-[0.2em] text-muted-foreground uppercase">
-          Visualizacoes mensais
-        </span>
-        <div className="flex items-baseline gap-2">
-          <span className="font-heading text-4xl font-extrabold text-foreground">
-            45k
-          </span>
-          <IconTrendingUp className="size-4 text-primary" aria-hidden />
-        </div>
-      </div>
-      <div className="group bg-background p-8 transition-colors hover:bg-muted/40">
-        <span className="mb-6 block font-sans text-[0.65rem] tracking-[0.2em] text-muted-foreground uppercase">
-          Leads pendentes
-        </span>
-        <div className="flex items-baseline gap-2">
-          <span className="font-heading text-4xl font-extrabold text-foreground">
-            12
-          </span>
-          <span className="bg-primary px-2 py-0.5 font-sans text-xs font-bold tracking-tighter text-primary-foreground">
-            Urgente
-          </span>
-        </div>
-      </div>
-      <div className="group bg-background p-8 transition-colors hover:bg-muted/40">
-        <span className="mb-6 block font-sans text-[0.65rem] tracking-[0.2em] text-muted-foreground uppercase">
-          Valor total da carteira
-        </span>
-        <div className="flex items-baseline gap-2">
-          <span className="font-heading text-4xl font-extrabold text-foreground">
-            R$ 4.2B
-          </span>
-        </div>
-      </div>
+      ))}
     </section>
   )
 }

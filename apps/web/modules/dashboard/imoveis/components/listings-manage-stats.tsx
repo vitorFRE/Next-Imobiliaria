@@ -1,9 +1,13 @@
-import { LISTINGS_ADMIN_STATS } from "../constants/listings-admin-mock"
+import type { ListingAdminStat } from "@/modules/dashboard/imoveis/types/listings-admin"
 
-export function ListingsManageStats() {
+type Props = {
+  stats: ListingAdminStat[]
+}
+
+export function ListingsManageStats({ stats }: Props) {
   return (
-    <div className="mb-16 grid grid-cols-1 gap-px bg-border/20 md:grid-cols-4">
-      {LISTINGS_ADMIN_STATS.map((stat) => (
+    <div className="mb-16 grid grid-cols-1 gap-px bg-border/20 md:grid-cols-2 lg:grid-cols-4">
+      {stats.map((stat) => (
         <div key={stat.label} className="space-y-2 bg-background p-8">
           <p className="font-sans text-[10px] tracking-widest text-muted-foreground uppercase">
             {stat.label}

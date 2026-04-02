@@ -1,24 +1,27 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useMemo } from "react"
 
 import { IconX } from "@tabler/icons-react"
 
 import { Button } from "@workspace/ui/components/button"
 
 type Props = {
-  file: File
+  url: string
+  name: string
   onRemove: () => void
 }
 
-export function NewListingGalleryThumb({ file, onRemove }: Props) {
-  const url = useMemo(() => URL.createObjectURL(file), [file])
-  useEffect(() => () => URL.revokeObjectURL(url), [url])
-
+export function NewListingGalleryThumb({ url, name, onRemove }: Props) {
   return (
     <div className="group relative aspect-square overflow-hidden border border-border/40 bg-muted">
-      <Image src={url} alt="" fill unoptimized className="object-cover" sizes="96px" />
+      <Image
+        src={url}
+        alt={name}
+        fill
+        className="object-cover"
+        sizes="96px"
+      />
       <Button
         type="button"
         variant="secondary"

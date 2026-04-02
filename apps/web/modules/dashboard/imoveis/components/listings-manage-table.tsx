@@ -1,71 +1,23 @@
 import Image from "next/image"
 
-import { Button } from "@workspace/ui/components/button"
-import {
-  IconEdit,
-  IconEye,
-  IconEyeOff,
-  IconTrash,
-} from "@tabler/icons-react"
+import { ListingsManageRowActions } from "@/modules/dashboard/imoveis/components/listings-manage-table-actions"
+import { ListingsManageStatusCell } from "@/modules/dashboard/imoveis/components/listings-manage-table-status"
+import type { ListingAdminRow } from "@/modules/dashboard/imoveis/types/listings-admin"
 
-import type { ListingAdminRow } from "../constants/listings-admin-mock"
-
-function StatusCell({ status }: { status: ListingAdminRow["status"] }) {
-  const available = status === "available"
-  return (
-    <div className="flex items-center gap-2">
-      <span
-        className={`size-1.5 ${available ? "bg-primary" : "bg-muted-foreground"}`}
-      />
-      <span
-        className={`font-sans text-[10px] font-bold tracking-widest uppercase ${available ? "text-foreground" : "text-muted-foreground"}`}
-      >
-        {available ? "Disponível" : "Oculto"}
-      </span>
-    </div>
-  )
+type Props = {
+  rows: ListingAdminRow[]
 }
 
-function RowActions({ row }: { row: ListingAdminRow }) {
-  const showVisibilityOn = row.status === "hidden"
-  return (
-    <div className="flex justify-end gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        className="size-9 rounded-none text-muted-foreground hover:text-foreground"
-        title="Editar"
-      >
-        <IconEdit className="size-5" aria-hidden />
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        className="size-9 rounded-none text-muted-foreground hover:text-foreground"
-        title={showVisibilityOn ? "Exibir" : "Esconder"}
-      >
-        {showVisibilityOn ? (
-          <IconEye className="size-5" aria-hidden />
-        ) : (
-          <IconEyeOff className="size-5" aria-hidden />
-        )}
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon"
-        className="size-9 rounded-none text-muted-foreground hover:text-destructive"
-        title="Excluir"
-      >
-        <IconTrash className="size-5" aria-hidden />
-      </Button>
-    </div>
-  )
-}
+export function ListingsManageTable({ rows }: Props) {
+  if (rows.length === 0) {
+    return (
+      <p className="py-16 text-center font-sans text-sm text-muted-foreground">
+        Nenhum imóvel cadastrado. Use &quot;Adicionar novo imóvel&quot; para
+        incluir o primeiro anúncio.
+      </p>
+    )
+  }
 
-export function ListingsManageTable({ rows }: { rows: ListingAdminRow[] }) {
   return (
     <div className="overflow-x-auto [scrollbar-width:thin]">
       <table className="w-full border-collapse text-left">
@@ -79,7 +31,7 @@ export function ListingsManageTable({ rows }: { rows: ListingAdminRow[] }) {
                 >
                   {label}
                 </th>
-              ),
+              )
             )}
           </tr>
         </thead>
@@ -96,7 +48,7 @@ export function ListingsManageTable({ rows }: { rows: ListingAdminRow[] }) {
                       src={row.imageSrc}
                       alt={row.imageAlt}
                       fill
-                      className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+                      className="object-cover"
                       sizes="80px"
                     />
                   </div>
@@ -105,7 +57,7 @@ export function ListingsManageTable({ rows }: { rows: ListingAdminRow[] }) {
                       {row.title}
                     </h2>
                     <p className="mt-1 font-sans text-[10px] tracking-widest text-muted-foreground uppercase">
-                      Codigo: {row.listingId}
+                      Código: {row.listingCode}
                     </p>
                   </div>
                 </div>
@@ -116,7 +68,7 @@ export function ListingsManageTable({ rows }: { rows: ListingAdminRow[] }) {
                 </span>
               </td>
               <td className="py-8">
-                <StatusCell status={row.status} />
+                <ListingsManageStatusCell status={row.status} />
               </td>
               <td className="py-8">
                 <span className="font-heading text-sm font-bold text-foreground">
@@ -124,7 +76,7 @@ export function ListingsManageTable({ rows }: { rows: ListingAdminRow[] }) {
                 </span>
               </td>
               <td className="py-8 text-right">
-                <RowActions row={row} />
+                <ListingsManageRowActions row={row} />
               </td>
             </tr>
           ))}

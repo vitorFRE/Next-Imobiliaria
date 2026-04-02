@@ -1,7 +1,6 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useMemo } from "react"
 
 import { PROPERTY_DETAIL_MANSION } from "@/modules/property-detail/data/property-detail-mock-mansion"
 
@@ -17,17 +16,7 @@ const statusLabel: Record<string, string> = {
 
 export function NewListingPreviewAside() {
   const { draft } = useNewListingDraft()
-  const coverSrc = useMemo(
-    () =>
-      draft.coverImageFile
-        ? URL.createObjectURL(draft.coverImageFile)
-        : FALLBACK_IMAGE,
-    [draft.coverImageFile],
-  )
-  useEffect(() => {
-    if (!draft.coverImageFile) return
-    return () => URL.revokeObjectURL(coverSrc)
-  }, [draft.coverImageFile, coverSrc])
+  const coverSrc = draft.coverImage?.url ?? FALLBACK_IMAGE
 
   const paragraphs = draft.descriptionBody
     .split(/\n+/)
@@ -42,7 +31,6 @@ export function NewListingPreviewAside() {
             src={coverSrc}
             alt="Pré-visualização do imóvel"
             fill
-            unoptimized={Boolean(draft.coverImageFile)}
             className="object-cover grayscale transition-all duration-700 hover:grayscale-0"
             sizes="(min-width: 1024px) 40vw, 100vw"
           />

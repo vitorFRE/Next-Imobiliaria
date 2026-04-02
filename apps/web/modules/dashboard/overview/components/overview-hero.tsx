@@ -1,6 +1,12 @@
-import { DASHBOARD_LAST_UPDATE } from "../constants/overview-mock"
-
 export function OverviewHero() {
+  const lastUpdate = new Date().toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+
   return (
     <section className="mb-16">
       <div className="flex items-end justify-between border-b border-border/40 pb-8">
@@ -17,7 +23,7 @@ export function OverviewHero() {
             Última atualização
           </p>
           <p className="font-heading text-lg font-bold text-foreground">
-            {DASHBOARD_LAST_UPDATE}
+            {lastUpdate}
           </p>
         </div>
       </div>

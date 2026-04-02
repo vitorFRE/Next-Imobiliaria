@@ -1,5 +1,5 @@
 import { ImoveisPageContent } from "@/modules/dashboard/imoveis/components/imoveis-page-content"
 
-export default function DashboardListingsPage() {
+export default async function DashboardListingsPage() {
   return <ImoveisPageContent />
 }

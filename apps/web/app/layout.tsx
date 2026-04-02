@@ -3,7 +3,7 @@ import { Geist_Mono, Inter, Manrope } from "next/font/google"
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/modules/core/components/theme-provider"
 import { WhatsAppFab } from "@/modules/core/components/whatsapp-fab"
-import { cn } from "@workspace/ui/lib/utils";
+import { cn } from "@workspace/ui/lib/utils"
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -31,7 +31,7 @@ export default function RootLayout({
         fontMono.variable,
         "font-sans",
         inter.variable,
-        manrope.variable,
+        manrope.variable
       )}
     >
       <body>

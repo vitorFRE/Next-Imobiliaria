@@ -20,12 +20,13 @@ type NewListingDraftContextValue = {
   resetDraft: () => void
 }
 
-const NewListingDraftContext = createContext<NewListingDraftContextValue | null>(
-  null,
-)
+const NewListingDraftContext =
+  createContext<NewListingDraftContextValue | null>(null)
 
 export function NewListingDraftProvider({ children }: { children: ReactNode }) {
-  const [draft, setDraft] = useState<NewListingDraft>(createEmptyNewListingDraft)
+  const [draft, setDraft] = useState<NewListingDraft>(
+    createEmptyNewListingDraft
+  )
 
   const updateDraft = useCallback((partial: Partial<NewListingDraft>) => {
     setDraft((d) => ({ ...d, ...partial }))
@@ -37,7 +38,7 @@ export function NewListingDraftProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(
     () => ({ draft, updateDraft, resetDraft }),
-    [draft, updateDraft, resetDraft],
+    [draft, updateDraft, resetDraft]
   )
 
   return (
@@ -50,7 +51,9 @@ export function NewListingDraftProvider({ children }: { children: ReactNode }) {
 export function useNewListingDraft() {
   const ctx = useContext(NewListingDraftContext)
   if (!ctx) {
-    throw new Error("useNewListingDraft must be used within NewListingDraftProvider")
+    throw new Error(
+      "useNewListingDraft must be used within NewListingDraftProvider"
+    )
   }
   return ctx
 }

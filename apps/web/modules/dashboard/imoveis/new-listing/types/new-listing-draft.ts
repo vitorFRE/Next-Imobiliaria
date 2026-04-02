@@ -1,5 +1,12 @@
 export type ListingDraftStatus = "disponivel" | "oculto" | "vendido"
 
+export type UploadedMediaFile = {
+  key: string
+  url: string
+  name: string
+  size: number
+}
+
 export type NewListingDraft = {
   title: string
   priceBrl: string
@@ -12,8 +19,8 @@ export type NewListingDraft = {
   totalPieces: string
   parking: "sim" | "nao"
   descriptionBody: string
-  coverImageFile: File | null
-  galleryImageFiles: File[]
+  coverImage: UploadedMediaFile | null
+  galleryImages: UploadedMediaFile[]
 }
 
 export function createEmptyNewListingDraft(): NewListingDraft {
@@ -29,7 +36,7 @@ export function createEmptyNewListingDraft(): NewListingDraft {
     totalPieces: "",
     parking: "sim",
     descriptionBody: "",
-    coverImageFile: null,
-    galleryImageFiles: [],
+    coverImage: null,
+    galleryImages: [],
   }
 }

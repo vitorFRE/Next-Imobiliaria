@@ -1,38 +1,38 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
+import { useRouter } from "next/navigation"
 
-import {
-  LISTINGS,
-  LISTING_BAIRROS,
-  LISTING_PRICE_OPTIONS,
-  LISTING_PROPERTY_TYPES,
-} from "@/modules/listings/constants/listings-data"
+import { LISTING_BAIRROS } from "@/modules/listings/constants/listings-data"
 import { ListingPropertyCard } from "@/modules/listings/components/listing-property-card"
 import { ListingsFilterBar } from "@/modules/listings/components/listings-filter-bar"
 import { ListingsPagination } from "@/modules/listings/components/listings-pagination"
-import { filterListings } from "@/modules/listings/utils/filter-listings"
+import type { CatalogListingsResult } from "@/modules/listings/services/get-catalog-listings"
+import { buildCatalogQueryString } from "@/modules/listings/utils/catalog-search-params"
 
-const defaultFilters = {
-  bairro: LISTING_BAIRROS[0],
-  tipo: LISTING_PROPERTY_TYPES[0],
-  priceMax: LISTING_PRICE_OPTIONS[0],
-} as const
+type Props = {
+  catalog: CatalogListingsResult
+  bairroOptions: string[]
+}
 
-export function ListingsCatalog() {
-  const [bairro, setBairro] = useState<string>(defaultFilters.bairro)
-  const [tipo, setTipo] = useState<string>(defaultFilters.tipo)
-  const [priceMax, setPriceMax] = useState<string>(defaultFilters.priceMax)
+export function ListingsCatalog({ catalog, bairroOptions }: Props) {
+  const router = useRouter()
 
-  const filtered = useMemo(
-    () => filterListings(LISTINGS, { bairro, tipo, priceMax }),
-    [bairro, tipo, priceMax],
-  )
+  const effectiveBairroOptions = useMemo(() => {
+    const b = catalog.filters.bairro
+    if (b === LISTING_BAIRROS[0]) return bairroOptions
+    if (bairroOptions.includes(b)) return bairroOptions
+    return [b, ...bairroOptions]
+  }, [bairroOptions, catalog.filters.bairro])
 
-  const clearFilters = () => {
-    setBairro(defaultFilters.bairro)
-    setTipo(defaultFilters.tipo)
-    setPriceMax(defaultFilters.priceMax)
+  function pushFilters(next: Partial<typeof catalog.filters>) {
+    const merged = { ...catalog.filters, ...next }
+    const q = buildCatalogQueryString(1, merged)
+    router.push(q ? `/imoveis?${q}` : "/imoveis")
+  }
+
+  function clearFilters() {
+    router.push("/imoveis")
   }
 
   return (
@@ -43,19 +43,26 @@ export function ListingsCatalog() {
           <span className="block text-muted-foreground">imóveis</span>
         </h1>
         <ListingsFilterBar
-          bairro={bairro}
-          tipo={tipo}
-          priceMax={priceMax}
-          onBairroChange={setBairro}
-          onTipoChange={setTipo}
-          onPriceMaxChange={setPriceMax}
+          bairroOptions={effectiveBairroOptions}
+          bairro={catalog.filters.bairro}
+          tipo={catalog.filters.tipo}
+          priceMax={catalog.filters.priceMax}
+          onBairroChange={(v) => pushFilters({ bairro: v })}
+          onTipoChange={(v) => pushFilters({ tipo: v })}
+          onPriceMaxChange={(v) => pushFilters({ priceMax: v })}
           onClearFilters={clearFilters}
         />
       </section>
-      {filtered.length > 0 ? (
+      {catalog.items.length > 0 ? (
         <div className="grid grid-cols-1 gap-x-10 gap-y-20 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((listing) => (
-            <ListingPropertyCard key={listing.id} listing={listing} />
+          {catalog.items.map((item, index) => (
+            <ListingPropertyCard
+              key={item.id}
+              listing={{
+                ...item,
+                staggerMd: index % 2 === 1,
+              }}
+            />
           ))}
         </div>
       ) : (
@@ -63,7 +70,13 @@ export function ListingsCatalog() {
           Nenhum imóvel encontrado com os filtros selecionados.
         </p>
       )}
-      {filtered.length > 0 ? <ListingsPagination /> : null}
+      {catalog.total > 0 ? (
+        <ListingsPagination
+          page={catalog.page}
+          totalPages={catalog.totalPages}
+          filters={catalog.filters}
+        />
+      ) : null}
     </>
   )
 }

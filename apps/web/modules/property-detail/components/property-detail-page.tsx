@@ -1,7 +1,5 @@
-import { mapEmbedSrcForProperty } from "@/modules/property-detail/data/property-detail-from-listing"
 import { PropertyAbout } from "@/modules/property-detail/components/property-about"
 import { PropertyGallery } from "@/modules/property-detail/components/property-gallery"
-import { PropertyLocationSection } from "@/modules/property-detail/components/property-location-section"
 import { PropertySpecs } from "@/modules/property-detail/components/property-specs"
 import { PropertyStickyWhatsapp } from "@/modules/property-detail/components/property-sticky-whatsapp"
 import type { PropertyDetail } from "@/modules/property-detail/types/property-detail"
@@ -14,8 +12,6 @@ type PropertyDetailPageProps = {
 }
 
 export function PropertyDetailPage({ property }: PropertyDetailPageProps) {
-  const mapSrc = mapEmbedSrcForProperty(property)
-
   return (
     <div className="min-h-svh bg-background text-foreground">
       <SiteNav />
@@ -40,13 +36,6 @@ export function PropertyDetailPage({ property }: PropertyDetailPageProps) {
               />
             </div>
           </section>
-        </HomeContainer>
-        <HomeContainer className="pb-24">
-          <PropertyLocationSection
-            embedSrc={mapSrc}
-            cardTitle={property.map.cardTitle}
-            cardDescription={property.map.cardDescription}
-          />
         </HomeContainer>
       </main>
       <HomeFooter />

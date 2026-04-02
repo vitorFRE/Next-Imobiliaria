@@ -15,7 +15,7 @@ export function DashboardLayoutClient({ children }: { children: ReactNode }) {
       <AppSidebar />
       <SidebarInset>
         <DashboardHeader pathname={pathname} />
-        <div className="flex flex-1 flex-col gap-4 px-4 pt-0 md:px-8 lg:px-12">
+        <div className="flex flex-1 flex-col gap-4 px-4 pt-6 md:px-8 md:pt-8 lg:px-12">
           {children}
         </div>
       </SidebarInset>

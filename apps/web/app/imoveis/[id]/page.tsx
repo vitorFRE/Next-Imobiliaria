@@ -2,10 +2,8 @@ import { notFound } from "next/navigation"
 
 import { BRAND } from "@/modules/core/constants/site"
 import { PropertyDetailPage } from "@/modules/property-detail/components/property-detail-page"
-import {
-  getPropertyById,
-  getPropertyListingIds,
-} from "@/modules/property-detail/services/get-property-by-id"
+import { getPropertyById } from "@/modules/property-detail/services/get-property-by-id"
+import { getPropertyListingIds } from "@/modules/property-detail/services/get-property-listing-ids"
 
 export const dynamicParams = true
 

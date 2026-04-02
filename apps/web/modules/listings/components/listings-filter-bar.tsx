@@ -13,7 +13,6 @@ import { Button } from "@workspace/ui/components/button"
 
 import { ListingsFilterFieldSelect } from "@/modules/listings/components/listings-filter-field-select"
 import {
-  LISTING_BAIRROS,
   LISTING_PRICE_OPTIONS,
   LISTING_PROPERTY_TYPES,
 } from "@/modules/listings/constants/listings-data"
@@ -23,6 +22,7 @@ const fieldWrap =
   "flex min-h-18 flex-1 items-center gap-3 border-border/25 bg-background px-5 py-3.5 md:border-r md:px-7 md:py-4"
 
 type ListingsFilterBarProps = {
+  bairroOptions: readonly string[]
   bairro: string
   tipo: string
   priceMax: string
@@ -57,6 +57,7 @@ function FieldShell({
 }
 
 export function ListingsFilterBar({
+  bairroOptions,
   bairro,
   tipo,
   priceMax,
@@ -72,7 +73,7 @@ export function ListingsFilterBar({
         label="Bairro"
       >
         <ListingsFilterFieldSelect
-          options={LISTING_BAIRROS}
+          options={bairroOptions}
           value={bairro}
           onValueChange={onBairroChange}
           ariaLabel="Bairro"
