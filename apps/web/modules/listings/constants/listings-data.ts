@@ -1,5 +1,3 @@
-import type { PropertyListing } from "@/modules/listings/types/listing"
-
 export const LISTING_PROPERTY_TYPES = [
   "Todos os tipos",
   "Coberturas",

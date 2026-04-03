@@ -2,11 +2,11 @@
 
 import Image from "next/image"
 
-import { PROPERTY_DETAIL_MANSION } from "@/modules/property-detail/data/property-detail-mock-mansion"
-
 import { useNewListingDraft } from "../context/new-listing-draft-context"
 
-const FALLBACK_IMAGE = PROPERTY_DETAIL_MANSION.gallery[0]?.image ?? ""
+/** Placeholder visual quando ainda não há foto de capa (não é dado de catálogo). */
+const PREVIEW_PLACEHOLDER_IMAGE =
+  "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80"
 
 const statusLabel: Record<string, string> = {
   disponivel: "Disponível",
@@ -16,7 +16,7 @@ const statusLabel: Record<string, string> = {
 
 export function NewListingPreviewAside() {
   const { draft } = useNewListingDraft()
-  const coverSrc = draft.coverImage?.url ?? FALLBACK_IMAGE
+  const coverSrc = draft.coverImage?.url ?? PREVIEW_PLACEHOLDER_IMAGE
 
   const paragraphs = draft.descriptionBody
     .split(/\n+/)
